@@ -81,9 +81,42 @@ namespace Sudoku
                 for (int i = 0; i < 36; i=i+4)
                 {
                     Console.SetCursorPosition(i, j);
-                    Console.WriteLine("|---");
-                    Console.SetCursorPosition(i, j+1);
-                    Console.WriteLine("| " + table[j/2, i/4] + " ");
+                    if (j == 0 && i == 0)
+                    {
+                        Console.WriteLine("    ");
+                        Console.SetCursorPosition(i, j + 1);
+                        Console.WriteLine("  " + table[j / 2, i / 4] + " ");
+                    } 
+                    else if (i == 0)
+                    {
+                        if (j == 0 || j == 6 || j == 12)
+                            Console.WriteLine(" ===");
+                        else
+                            Console.WriteLine(" ---");
+                        Console.SetCursorPosition(i, j + 1);
+                        Console.WriteLine("  " + table[j / 2, i / 4] + " ");
+                    }
+                    else if (j == 0)
+                    {
+                        Console.WriteLine("    ");
+                        Console.SetCursorPosition(i, j + 1);
+                        Console.WriteLine("| " + table[j / 2, i / 4] + " ");
+                    }
+                    else
+                    {
+                        if (j == 0 || j == 6 || j == 12)
+                        {
+                            Console.WriteLine("|===");
+                            Console.SetCursorPosition(i, j + 1);
+                            Console.WriteLine("| " + table[j / 2, i / 4] + " ");
+                        }
+                        else
+                        {
+                            Console.WriteLine("|---");
+                            Console.SetCursorPosition(i, j + 1);
+                            Console.WriteLine("| " + table[j / 2, i / 4] + " ");
+                        }                        
+                    }
                 }
             }
 
