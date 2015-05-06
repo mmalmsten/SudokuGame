@@ -76,47 +76,58 @@ namespace Sudoku
             table[8, 6] = 3;
             table[8, 8] = 7;
 
-            for (int j = 0; j < 18; j=j+2)
+            Console.ForegroundColor = ConsoleColor.White;
+
+            for (int j = 0; j < 18; j = j + 2)
             {
-                for (int i = 0; i < 36; i=i+4)
+                for (int i = 0; i < 36; i = i + 4)
                 {
                     Console.SetCursorPosition(i, j);
-                    if (j == 0 && i == 0)
+                    Console.WriteLine("|---");
+                    Console.SetCursorPosition(i, j + 1);
+                    if (table[j / 2, i / 4] != 0)
                     {
-                        Console.WriteLine("    ");
-                        Console.SetCursorPosition(i, j + 1);
-                        Console.WriteLine("  " + table[j / 2, i / 4] + " ");
-                    } 
-                    else if (i == 0)
-                    {
-                        if (j == 0 || j == 6 || j == 12)
-                            Console.WriteLine(" ===");
-                        else
-                            Console.WriteLine(" ---");
-                        Console.SetCursorPosition(i, j + 1);
-                        Console.WriteLine("  " + table[j / 2, i / 4] + " ");
-                    }
-                    else if (j == 0)
-                    {
-                        Console.WriteLine("    ");
-                        Console.SetCursorPosition(i, j + 1);
-                        Console.WriteLine("| " + table[j / 2, i / 4] + " ");
+                        Console.Write("| ");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(table[j / 2, i / 4] + " ");
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
-                        if (j == 0 || j == 6 || j == 12)
-                        {
-                            Console.WriteLine("|===");
-                            Console.SetCursorPosition(i, j + 1);
-                            Console.WriteLine("| " + table[j / 2, i / 4] + " ");
-                        }
-                        else
-                        {
-                            Console.WriteLine("|---");
-                            Console.SetCursorPosition(i, j + 1);
-                            Console.WriteLine("| " + table[j / 2, i / 4] + " ");
-                        }                        
+                        Console.WriteLine("|   ");
                     }
+
+                    if (j == 6 || j == 12)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.SetCursorPosition(i, j);
+                        Console.WriteLine("|===");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+
+                    if (i == 12 || i == 24)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.SetCursorPosition(i, j);
+                        Console.WriteLine("|");
+                        Console.SetCursorPosition(i, j + 1);
+                        Console.WriteLine("|");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+
+                    if (j == 0)
+                    {
+                        Console.SetCursorPosition(i, j);
+                        Console.WriteLine("    ");
+                    }
+
+                    if (i == 0)
+                    {
+                        Console.SetCursorPosition(i, j);
+                        Console.WriteLine(" ");                        
+                        Console.WriteLine(" ");                        
+                    }
+                    
                 }
             }
 
@@ -124,9 +135,13 @@ namespace Sudoku
 
         public void ChoosePosition()
         {
+
+            Console.SetCursorPosition(0, 20);
+            string input;
+
             Console.WriteLine("Ange rad:");
-            var input = Console.ReadLine();
-            Int32.TryParse(input, out userY);
+            input = Console.ReadLine();
+            Int32.TryParse(input, out userY);                
             userY--;
 
             Console.WriteLine("Ange kolumn:");
@@ -137,7 +152,6 @@ namespace Sudoku
             Console.WriteLine("Ange nummer:");
             input = Console.ReadLine();
             Int32.TryParse(input, out newNumber);
-
         }
 
         public void CheckPosition()
