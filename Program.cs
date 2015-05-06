@@ -30,9 +30,9 @@ namespace Sudoku
     class Sudoku
     {
         public int[,] table = new int[9, 9];
-        public int userX = 0;
-        public int userY = 0;
-        public int newNumber = 0;
+        public int userX;
+        public int userY;
+        public int newNumber;
         public bool isValid = true;
         public int inSquare;
         public int minY;
@@ -136,22 +136,35 @@ namespace Sudoku
         public void ChoosePosition()
         {
 
+            userX = 0;
+            userY = 0;
+            newNumber = 0;
+
             Console.SetCursorPosition(0, 20);
             string input;
 
-            Console.WriteLine("Ange rad:");
-            input = Console.ReadLine();
-            Int32.TryParse(input, out userY);                
+            while (userY < 1 || userY > 9)
+            {
+                Console.WriteLine("Ange en rad (mellan 1 och 9):");
+                input = Console.ReadLine();
+                Int32.TryParse(input, out userY);
+            }
             userY--;
 
-            Console.WriteLine("Ange kolumn:");
-            input = Console.ReadLine();
-            Int32.TryParse(input, out userX);
+            while (userX < 1 || userX > 9)
+            {
+                Console.WriteLine("Ange en kolumn (mellan 1 och 9):");
+                input = Console.ReadLine();
+                Int32.TryParse(input, out userX);
+            }
             userX--;
 
-            Console.WriteLine("Ange nummer:");
-            input = Console.ReadLine();
-            Int32.TryParse(input, out newNumber);
+            while (newNumber < 1 || newNumber > 9)
+            {
+                Console.WriteLine("Ange ett nummer (mellan 1 och 9):");
+                input = Console.ReadLine();
+                Int32.TryParse(input, out newNumber);
+            }
         }
 
         public void CheckPosition()
@@ -259,8 +272,10 @@ namespace Sudoku
                 table[userY, userX] = newNumber;
                 Console.WriteLine("Correct!");
             }
-            Console.WriteLine("Press any key to continue playing.");
-            Console.ReadKey();
+            Console.WriteLine("Press q to exit, and any other key to continue playing.");
+            var info = Console.ReadKey();
+            if (info.KeyChar == 'q')
+                Environment.Exit(0);
             Console.Clear();
         }
    
